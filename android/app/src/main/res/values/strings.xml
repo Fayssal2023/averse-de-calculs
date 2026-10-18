@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Averse de Calculs</string>
+    <string name="title_activity_main">Averse de Calculs</string>
+    <string name="package_name">com.aversedecalculs.jeu</string>
+    <string name="custom_url_scheme">com.aversedecalculs.jeu</string>
+</resources>
