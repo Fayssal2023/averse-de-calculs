@@ -1,0 +1,7 @@
+{
+  "appId": "com.aversedecalculs.jeu",
+  "appName": "Averse de Calculs",
+  "webDir": "www",
+  "backgroundColor": "#0c2a3b",
+  "android": { "backgroundColor": "#0c2a3b" }
+}

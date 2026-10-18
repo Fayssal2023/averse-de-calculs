@@ -1,0 +1,73 @@
+AVERSE DE CALCULS - Projet Android
+===================================
+
+Ce dossier contient le jeu prêt à être transformé en application Android.
+
+  www/                      le jeu (page web, polices incluses : il marche sans internet)
+  android/                  le projet Android à ouvrir dans Android Studio
+  node_modules/             les fichiers Capacitor dont le projet Android a besoin (ne pas supprimer)
+  icone-play-store-512.png  l'icône à envoyer sur la fiche Play Store
+  capacitor.config.json     le nom de l'appli et son identifiant (com.aversedecalculs.jeu)
+
+
+ÉTAPE 1 - Installer Android Studio (une seule fois)
+---------------------------------------------------
+1. Télécharge Android Studio sur https://developer.android.com/studio
+2. Installe-le avec les options par défaut (il installe aussi le SDK Android).
+3. Au premier lancement, laisse-le télécharger ce qu'il demande.
+
+
+ÉTAPE 2 - Ouvrir le projet
+--------------------------
+1. Décompresse ce zip, par exemple dans C:\Projets\averse
+   (évite les chemins avec des accents ou trop longs).
+2. Dans Android Studio : File > Open, puis choisis le dossier "android"
+   (pas le dossier principal, bien le sous-dossier android).
+3. Attends la fin de la synchronisation Gradle (barre en bas). La première fois,
+   ça peut prendre 5 à 10 minutes.
+
+
+ÉTAPE 3 - Tester sur ton téléphone
+----------------------------------
+1. Sur le téléphone : Paramètres > À propos du téléphone > touche 7 fois "Numéro de build".
+   Le menu "Options pour les développeurs" apparaît.
+2. Dans Options pour les développeurs, active "Débogage USB".
+3. Branche le téléphone au PC en USB et accepte l'autorisation sur le téléphone.
+4. Dans Android Studio, choisis ton téléphone en haut, puis clique sur le bouton vert ▶ (Run).
+   Le jeu s'installe et se lance.
+
+Sans câble : Build > Build App Bundle(s) / APK(s) > Build APK(s), puis envoie le fichier
+android\app\build\outputs\apk\debug\app-debug.apk sur ton téléphone et ouvre-le.
+
+
+ÉTAPE 4 - Créer la version pour le Play Store
+---------------------------------------------
+1. Build > Generate Signed App Bundle / APK > choisis "Android App Bundle" > Next.
+2. "Create new..." pour créer ta clé de signature (keystore).
+   TRÈS IMPORTANT : garde ce fichier .jks et ses mots de passe en lieu sûr (clé USB, cloud).
+   Sans eux, tu ne pourras plus jamais mettre à jour ton jeu.
+3. Choisis "release" puis Create.
+4. Le fichier à envoyer sur le Play Store est :
+   android\app\release\app-release.aab
+
+
+ÉTAPE 5 - Publier sur Google Play
+---------------------------------
+1. Crée un compte sur https://play.google.com/console (25 $ une seule fois).
+2. "Créer une application" > nom : Averse de Calculs > Jeu > Gratuit.
+3. Remplis la fiche : description, icône (icone-play-store-512.png), captures d'écran
+   du jeu (au moins 2), image de présentation 1024 x 500.
+4. Remplis les questionnaires : classification du contenu, public cible,
+   politique de confidentialité (le jeu ne collecte aucune donnée).
+5. Envoie le fichier .aab dans "Tests" puis "Production".
+   Note : les nouveaux comptes personnels doivent d'abord faire un test fermé
+   avec plusieurs testeurs pendant quelques jours avant de pouvoir publier.
+
+
+MODIFIER LE JEU PLUS TARD
+-------------------------
+1. Remplace www/index.html par la nouvelle version.
+2. Si Node.js est installé (https://nodejs.org), dans ce dossier : npx cap sync android
+   Sinon, copie www/index.html vers android\app\src\main\assets\public\index.html
+3. Dans android\app\build.gradle, augmente versionCode (1 -> 2 -> 3...) et versionName.
+4. Refais l'étape 4 et envoie le nouveau .aab sur le Play Store.
