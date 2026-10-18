@@ -7,45 +7,56 @@
 <title>Averse de Calculs</title>
 </head>
 <body>
+
 <style>
 @font-face{font-family:'Baloo 2';font-weight:600;font-display:swap;src:url(fonts/baloo-2-latin-600-normal.woff2) format('woff2')}
 @font-face{font-family:'Baloo 2';font-weight:800;font-display:swap;src:url(fonts/baloo-2-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'Baloo Bhaijaan 2';font-weight:600;font-display:swap;src:url(fonts/baloo-bhaijaan-2-arabic-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Baloo Bhaijaan 2';font-weight:800;font-display:swap;src:url(fonts/baloo-bhaijaan-2-arabic-800-normal.woff2) format('woff2')}
 @font-face{font-family:'Nunito';font-weight:500;font-display:swap;src:url(fonts/nunito-latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'Nunito';font-weight:700;font-display:swap;src:url(fonts/nunito-latin-700-normal.woff2) format('woff2')}
 @font-face{font-family:'Nunito';font-weight:800;font-display:swap;src:url(fonts/nunito-latin-800-normal.woff2) format('woff2')}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-*{box-sizing:border-box}body{margin:0}
-[hidden]{display:none!important}
-img{max-width:100%}
+*{box-sizing:border-box}body{margin:0}img{max-width:100%}
 
 /* Layout: one-screen game — HUD band, falling field, rising lake, keypad dock */
 :root{
   --sky-top:#123a52; --sky-bot:#1f6a7c; --lake:#2bb3c0; --lake-deep:#167c8f;
   --drop:#e8fbff; --drop-ink:#0f3446; --sun:#ffc94a; --coral:#ff7a6b;
+  --ice:#9fd8ff; --sunny:#ff9a5c;
   --panel:#0c2a3b; --panel-2:#143c52; --ink:#eaf7fa; --muted:#9cc4cf;
-  --display:"Baloo 2", "Trebuchet MS", system-ui, sans-serif;
-  --body:"Nunito", system-ui, -apple-system, sans-serif;
+  --display:"Baloo 2", "Baloo Bhaijaan 2", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Nunito", "Baloo Bhaijaan 2", system-ui, -apple-system, sans-serif;
   color-scheme:dark;
 }
+[hidden]{display:none!important}
 html,body{height:100%}
 body{background:var(--panel);color:var(--ink);font-family:var(--body);overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:manipulation}
 .app{height:100%;display:flex;flex-direction:column;max-width:560px;margin:0 auto}
 .hud{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--panel)}
-.hud .stat{display:flex;flex-direction:column;line-height:1.05}
-.hud .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
-.hud .val{font-family:var(--display);font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
-.progress{flex:1;height:8px;border-radius:99px;background:var(--panel-2);overflow:hidden;align-self:center;min-width:60px}
+.hud .stat{display:flex;flex-direction:column;line-height:1.05;min-width:0}
+.hud .stat.end{text-align:end}
+.hud .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;white-space:nowrap}
+.hud .val{font-family:var(--display);font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.progress{flex:1;height:8px;border-radius:99px;background:var(--panel-2);overflow:hidden;align-self:center;min-width:40px}
 .progress i{display:block;height:100%;width:0;background:var(--sun);border-radius:99px;transition:width .25s}
-.lives{display:flex;gap:3px;font-size:18px}
-.lives span{width:12px;height:16px;background:var(--lake);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;clip-path:polygon(50% 0,100% 62%,92% 88%,50% 100%,8% 88%,0 62%)}
+.progress.off{visibility:hidden}
+.lives{display:flex;gap:3px}
+.lives span{width:12px;height:16px;background:var(--lake);clip-path:polygon(50% 0,100% 62%,92% 88%,50% 100%,8% 88%,0 62%)}
 .lives span.off{background:var(--panel-2)}
+.pausebtn{width:36px;height:36px;border:0;border-radius:10px;background:var(--panel-2);cursor:pointer;display:grid;place-items:center;flex:none}
+.pausebtn::before{content:"";width:12px;height:14px;border-inline:4px solid var(--ink)}
 
 .field{position:relative;flex:1;overflow:hidden;background:linear-gradient(var(--sky-top),var(--sky-bot))}
+.field::after{content:"";position:absolute;inset:0;background:var(--ice);opacity:0;pointer-events:none;transition:opacity .4s;z-index:1}
+.field.frozen::after{opacity:.16}
 .drop{position:absolute;left:0;top:0;width:56px;height:66px;display:grid;place-items:center;padding-top:12px;
   font-family:var(--display);font-weight:800;font-size:13px;color:var(--drop-ink);will-change:transform}
 .drop::before{content:"";position:absolute;inset:0;background:var(--drop);clip-path:path("M28 0 C35 15.2 53.7 30.3 53.7 44.3 A25.7 21 0 0 1 2.3 44.3 C2.3 30.3 21 15.2 28 0Z");opacity:.95}
 .drop.gold::before{background:var(--sun)}
-.drop b{position:relative;white-space:nowrap;font-variant-numeric:tabular-nums}
+.drop.ice::before{background:var(--ice)}
+.drop.sun::before{background:var(--sunny)}
+.drop b{position:relative;white-space:nowrap;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
 .drop.pop{animation:pop .3s ease-out forwards}
 .drop.splash{animation:splash .35s ease-in forwards}
 @keyframes pop{to{opacity:0;scale:1.5}}
@@ -54,64 +65,91 @@ body{background:var(--panel);color:var(--ink);font-family:var(--body);overflow:h
 .lake::before{content:"";position:absolute;left:0;right:0;top:-8px;height:16px;background:radial-gradient(14px 8px at 14px 8px,var(--lake) 98%,transparent) 0 0/28px 16px repeat-x;animation:wave 3s linear infinite}
 @keyframes wave{to{background-position:28px 0}}
 
-.overlay{position:absolute;inset:0;display:grid;place-items:center;padding:24px;background:color-mix(in srgb,var(--panel) 72%,transparent);text-align:center}
-.card{display:flex;flex-direction:column;gap:12px;align-items:center;max-width:320px}
-.card h1{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;margin:0;text-wrap:balance}
-.card h2{font-family:var(--display);font-weight:800;font-size:30px;margin:0}
+.overlay{position:absolute;inset:0;z-index:2;display:flex;overflow-y:auto;padding:20px 16px;background:color-mix(in srgb,var(--panel) 78%,transparent);text-align:center}
+.card{margin:auto;display:flex;flex-direction:column;gap:12px;align-items:center;width:100%;max-width:340px}
+.card h1{font-family:var(--display);font-weight:800;font-size:38px;line-height:1;margin:0;text-wrap:balance}
+.card h2{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.1;margin:0;text-wrap:balance}
+.card h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 0 0;font-weight:800}
 .card p{margin:0;color:var(--muted);line-height:1.45}
 .card .big{font-family:var(--display);font-size:22px;color:var(--ink)}
 .btn{font:800 18px var(--body);border:0;border-radius:14px;padding:12px 28px;background:var(--sun);color:var(--drop-ink);cursor:pointer}
-.seg{display:flex;gap:4px;background:var(--panel-2);padding:4px;border-radius:14px}
+.btn.ghost{background:var(--panel-2);color:var(--ink)}
+.seg{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;background:var(--panel-2);padding:4px;border-radius:14px}
 .seg button{font:800 15px var(--body);border:0;border-radius:10px;padding:8px 14px;background:transparent;color:var(--muted);cursor:pointer}
+.seg.ops button{font:800 22px var(--display);padding:4px 16px;min-width:48px}
 .seg button[aria-pressed="true"]{background:var(--lake);color:var(--drop-ink)}
-.link{background:none;border:0;color:var(--muted);font:700 14px var(--body);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.seg button:focus-visible,.link:focus-visible,.btn:focus-visible,.key:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.codein{font:800 24px var(--display);letter-spacing:.12em;text-align:center;text-transform:uppercase;width:100%;max-width:220px;padding:8px 10px;border-radius:12px;border:2px solid var(--panel-2);background:var(--panel);color:var(--ink);user-select:text;-webkit-user-select:text;direction:ltr}
+.codein:focus-visible{outline:none;border-color:var(--lake)}
+.code{font:800 34px var(--display);letter-spacing:.14em;color:var(--sun);direction:ltr;user-select:text;-webkit-user-select:text}
+.msg{background:var(--panel-2);border-radius:12px;padding:10px 12px;font-size:14px;user-select:text;-webkit-user-select:text;color:var(--ink)!important}
+.err{color:var(--coral)!important;font-weight:700}
+.link{background:none;border:0;color:var(--muted);font:700 14px var(--body);cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px}
+.row{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:center;align-items:center}
+select{font:700 14px var(--body);color:var(--ink);background:var(--panel-2);border:0;border-radius:10px;padding:7px 10px;cursor:pointer}
+.pick{display:flex;align-items:center;gap:10px;color:var(--muted);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;font-size:13px;color:var(--muted);font-weight:700}
+.legend span{display:flex;align-items:center;gap:6px}
+.mini{width:12px;height:15px;clip-path:polygon(50% 0,100% 62%,92% 88%,50% 100%,8% 88%,0 62%)}
+.seg button:focus-visible,.link:focus-visible,.btn:focus-visible,.key:focus-visible,select:focus-visible,.pausebtn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+.skill{width:100%;background:var(--panel-2);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.skill-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.skill-top span{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.skill-top b{font:800 24px var(--display);font-variant-numeric:tabular-nums}
+.skill-top small{font-weight:800;font-size:14px}
+.skill-top small.up{color:var(--lake)}
+.skill-top small.down{color:var(--coral)}
+.skill-top em{margin-inline-start:auto;font:800 17px var(--display);font-style:normal;color:var(--sun)}
+.skill .bar i{background:linear-gradient(90deg,var(--lake),var(--sun))}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.tile{background:var(--panel-2);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px}
+.tile b{font-family:var(--display);font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
+.tile span{font-size:12px;color:var(--muted);font-weight:700}
+.oprows{display:flex;flex-direction:column;gap:6px;width:100%}
+.oprow{display:grid;grid-template-columns:28px 1fr 46px;align-items:center;gap:8px;direction:ltr}
+.oprow .sym{font:800 20px var(--display)}
+.bar{height:10px;border-radius:99px;background:var(--panel-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--lake);border-radius:99px}
+.oprow .pct{font-weight:800;font-variant-numeric:tabular-nums;text-align:right;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.chip{background:var(--panel-2);border-radius:99px;padding:5px 12px;font:800 15px var(--display);direction:ltr;unicode-bidi:isolate}
+.chip small{color:var(--coral);font-family:var(--body);margin-left:6px}
 
 .dock{background:var(--panel);padding-block:10px calc(10px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:8px}
-.answer{height:46px;border-radius:12px;background:var(--panel-2);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:28px;font-variant-numeric:tabular-nums;color:var(--ink)}
-.answer.empty{color:var(--muted);font-size:15px;font-family:var(--body);font-weight:700}
+.answer{height:46px;border-radius:12px;background:var(--panel-2);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:28px;font-variant-numeric:tabular-nums;color:var(--ink);direction:ltr}
+.answer.empty{color:var(--muted);font-size:15px;font-family:var(--body);font-weight:700;direction:inherit}
 .answer.bad{animation:shake .3s;background:color-mix(in srgb,var(--coral) 40%,var(--panel-2))}
 @keyframes shake{25%{translate:-6px}75%{translate:6px}}
-.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;direction:ltr}
 .key{height:50px;border:0;border-radius:12px;background:var(--panel-2);color:var(--ink);font:800 22px var(--display);cursor:pointer}
 .key:active{background:var(--lake-deep)}
 .key.ok{grid-row:span 2;height:auto;background:var(--lake);color:var(--drop-ink)}
 .key.alt{font-size:16px;color:var(--muted)}
-.toast{position:absolute;left:50%;top:18px;translate:-50% 0;font-family:var(--display);font-weight:800;font-size:22px;color:var(--sun);pointer-events:none;opacity:0;transition:opacity .3s}
+.toast{position:absolute;left:50%;top:18px;translate:-50% 0;z-index:3;font-family:var(--display);font-weight:800;font-size:22px;color:var(--sun);pointer-events:none;opacity:0;transition:opacity .3s;white-space:nowrap}
 .toast.on{opacity:1}
-@media (max-height:640px){.key{height:42px}.answer{height:40px}}
+@media (max-height:640px){.key{height:42px}.answer{height:40px}.card{gap:9px}.card h1{font-size:32px}}
 @media (prefers-reduced-motion:reduce){.lake::before{animation:none}.drop.pop,.drop.splash{animation-duration:.01s}}
 </style>
 
 <div class="app">
   <div class="hud">
-    <div class="stat"><span class="lbl">Niveau</span><span class="val" id="stage">1</span></div>
-    <div class="progress" aria-label="Progression du niveau"><i id="prog"></i></div>
-    <div class="stat" style="text-align:right"><span class="lbl">Score</span><span class="val" id="score">0</span></div>
-    <div class="lives" id="lives" aria-label="Vies"></div>
+    <div class="stat"><span class="lbl" id="lvlLbl">Niveau</span><span class="val" id="stage">1</span></div>
+    <div class="progress" id="progWrap"><i id="prog"></i></div>
+    <div class="stat end"><span class="lbl" id="scoreLbl">Score</span><span class="val" id="score">0</span></div>
+    <div class="lives" id="lives"></div>
+    <button class="pausebtn" id="pauseBtn" hidden></button>
   </div>
 
   <div class="field" id="field">
     <div class="lake" id="lake"></div>
     <div class="toast" id="toast"></div>
-    <div class="overlay" id="overlay">
-      <div class="card" id="card">
-        <h1>Averse de Calculs</h1>
-        <p>Résous chaque goutte avant qu'elle touche le lac. Tape la réponse : la goutte éclate toute seule. Une goutte dorée efface tout l'écran.</p>
-        <div class="seg" role="group" aria-label="Difficulté">
-          <button data-diff="facile">Facile</button><button data-diff="normal">Normal</button><button data-diff="expert">Expert</button>
-        </div>
-        <p id="best"></p>
-        <button class="btn" id="start">Jouer</button>
-        <button class="link" id="snd">Son activé</button>
-      </div>
-    </div>
+    <div class="overlay" id="overlay"><div class="card" id="card"></div></div>
   </div>
 
   <div class="dock">
-    <div class="answer empty" id="answer">Tape ta réponse</div>
+    <div class="answer empty" id="answer"></div>
     <div class="keys" id="keys">
-      <button class="key">7</button><button class="key">8</button><button class="key">9</button><button class="key alt" data-k="del" aria-label="Effacer">⌫</button>
+      <button class="key">7</button><button class="key">8</button><button class="key">9</button><button class="key alt" data-k="del" id="delKey">⌫</button>
       <button class="key">4</button><button class="key">5</button><button class="key">6</button><button class="key ok" data-k="ok">OK</button>
       <button class="key">1</button><button class="key">2</button><button class="key">3</button>
       <button class="key alt" data-k="clr">C</button><button class="key">0</button><button class="key alt" data-k="neg">−</button>
@@ -123,36 +161,128 @@ body{background:var(--panel);color:var(--ink);font-family:var(--body);overflow:h
 const $ = id => document.getElementById(id);
 const field = $('field'), lake = $('lake'), overlay = $('overlay'), card = $('card'), answerEl = $('answer');
 const MAX_LIVES = 3;
+const OPS = ['+','-','×','÷'];
+const SYM = { '+':'+', '-':'−', '×':'×', '÷':'÷' };
 let state = null, typed = '', last = 0, raf = 0;
 
-// Settings: difficulty and sound, remembered on this device
-const DIFFS = {
-  facile:{ speed:.7,  every:1.3, goal:-2 },
-  normal:{ speed:1,   every:1,   goal:0 },
-  expert:{ speed:1.35,every:.75, goal:2 },
+/* ---------- Translations ---------- */
+const I18N = {
+fr:{ title:"Averse de Calculs", intro:"Résous chaque goutte avant qu'elle touche le lac. La goutte éclate dès que ta réponse est juste.",
+ mode:"Mode", adventure:"Aventure", training:"Entraînement", difficulty:"Difficulté", facile:"Facile", normal:"Normal", expert:"Expert",
+ play:"Jouer", soundOn:"Son activé", soundOff:"Son coupé", stats:"Statistiques", language:"Langue",
+ table:"Table", allTables:"Toutes", operation:"Opération", trainHint:"Pas de vies à perdre : entraîne-toi à ton rythme.",
+ gold:"Efface tout", ice:"Ralentit", sun:"Baisse le lac", best:"Meilleur score : {n}",
+ level:"Niveau", score:"Score", correct:"Justes", typeAnswer:"Tape ta réponse",
+ toastLevel:"Niveau {n}", toastGold:"Éclaircie !", toastIce:"Gel !", toastSun:"Soleil !", toastStreak:"Série ×{n}",
+ clearTitle:"Niveau {n} réussi", clearBonus:"Bonus lac : {l} × 25 = +{b}", next:"Niveau {n}",
+ overTitle:"Le lac a débordé", overInfo:"Niveau atteint : {s} · Meilleur : {b}", again:"Rejouer", menu:"Menu",
+ pause:"Pause", resume:"Continuer", quit:"Quitter", pauseLabel:"Mettre en pause",
+ trainDone:"Entraînement terminé", accuracy:"Précision", avgTime:"Temps moyen", answers:"Bonnes réponses", missed:"Ratées",
+ games:"Parties", bestLevel:"Meilleur niveau", byOp:"Par opération", hardest:"Calculs les plus ratés",
+ noData:"Pas encore de données. Joue une partie !", reset:"Réinitialiser", resetAsk:"Effacer toutes les statistiques ?",
+ resetYes:"Oui, effacer", cancel:"Annuler", back:"Retour", sec:"{n} s", lives:"Vies", progress:"Progression du niveau", del:"Effacer",
+ skill:"Indice de calcul", r0:"Bruine", r1:"Ondée", r2:"Averse", r3:"Orage", r4:"Tempête", r5:"Mousson", newRecord:"Nouveau record !", toBeat:"Encore {n} points pour battre ton record", playAgain:"Encore une partie", rankUp:"Nouveau rang : {r} !", record:"Record",
+ challenge:"Défi entre amis", chIntro:"Joue une partie avec des calculs fixés, puis envoie ton code : ton ami recevra exactement les mêmes gouttes.", create:"Créer un défi", gotCode:"Tu as reçu un code ?", accept:"Relever le défi", badCode:"Ce code n'est pas valide. Vérifie les 7 caractères.", chReady:"Défi prêt !", chSend:"Envoie ce code à tes amis :", share:"Partager", copy:"Copier", copied:"Message copié", win:"Tu as gagné !", lose:"Perdu de {n} points", tie:"Égalité !", versus:"Toi {a} · Ton ami {b}", sendBack:"Renvoyer le défi", retry:"Rejouer ce défi", toBeatFriend:"Score à battre : {n}", ahead:"Tu passes devant !", shareMsg:"J'ai fait {s} points à Averse de Calculs ! Relève mon défi avec le code {c}" },
+en:{ title:"Math Rain", intro:"Solve each drop before it hits the lake. The drop pops as soon as your answer is right.",
+ mode:"Mode", adventure:"Adventure", training:"Practice", difficulty:"Difficulty", facile:"Easy", normal:"Normal", expert:"Expert",
+ play:"Play", soundOn:"Sound on", soundOff:"Sound off", stats:"Statistics", language:"Language",
+ table:"Table", allTables:"All", operation:"Operation", trainHint:"No lives to lose: practice at your own pace.",
+ gold:"Clears all", ice:"Slows down", sun:"Lowers the lake", best:"Best score: {n}",
+ level:"Level", score:"Score", correct:"Correct", typeAnswer:"Type your answer",
+ toastLevel:"Level {n}", toastGold:"All clear!", toastIce:"Freeze!", toastSun:"Sunshine!", toastStreak:"Streak ×{n}",
+ clearTitle:"Level {n} complete", clearBonus:"Lake bonus: {l} × 25 = +{b}", next:"Level {n}",
+ overTitle:"The lake overflowed", overInfo:"Level reached: {s} · Best: {b}", again:"Play again", menu:"Menu",
+ pause:"Paused", resume:"Resume", quit:"Quit", pauseLabel:"Pause",
+ trainDone:"Practice complete", accuracy:"Accuracy", avgTime:"Average time", answers:"Correct answers", missed:"Missed",
+ games:"Games", bestLevel:"Best level", byOp:"By operation", hardest:"Most missed",
+ noData:"No data yet. Play a game!", reset:"Reset", resetAsk:"Erase all statistics?",
+ resetYes:"Yes, erase", cancel:"Cancel", back:"Back", sec:"{n} s", lives:"Lives", progress:"Level progress", del:"Delete",
+ skill:"Math index", r0:"Drizzle", r1:"Shower", r2:"Downpour", r3:"Storm", r4:"Tempest", r5:"Monsoon", newRecord:"New record!", toBeat:"{n} more points to beat your record", playAgain:"One more game", rankUp:"New rank: {r}!", record:"Record",
+ challenge:"Friend challenge", chIntro:"Play a game with fixed calculations, then send your code: your friend gets exactly the same drops.", create:"Create a challenge", gotCode:"Got a code?", accept:"Accept the challenge", badCode:"This code isn't valid. Check the 7 characters.", chReady:"Challenge ready!", chSend:"Send this code to your friends:", share:"Share", copy:"Copy", copied:"Message copied", win:"You won!", lose:"Lost by {n} points", tie:"It's a tie!", versus:"You {a} · Your friend {b}", sendBack:"Send it back", retry:"Replay this challenge", toBeatFriend:"Score to beat: {n}", ahead:"You're ahead!", shareMsg:"I scored {s} points in Averse de Calculs! Take my challenge with code {c}" },
+ar:{ title:"مطر الحساب", intro:"حُلّ كل قطرة قبل أن تصل إلى البحيرة. تنفجر القطرة بمجرد أن تكون إجابتك صحيحة.",
+ mode:"الوضع", adventure:"مغامرة", training:"تدريب", difficulty:"الصعوبة", facile:"سهل", normal:"عادي", expert:"خبير",
+ play:"العب", soundOn:"الصوت مفعّل", soundOff:"الصوت مطفأ", stats:"الإحصائيات", language:"اللغة",
+ table:"جدول", allTables:"الكل", operation:"العملية", trainHint:"لا توجد أرواح تخسرها: تدرّب على راحتك.",
+ gold:"تمسح الكل", ice:"تُبطئ", sun:"تُخفض البحيرة", best:"أفضل نتيجة: {n}",
+ level:"المستوى", score:"النقاط", correct:"صحيحة", typeAnswer:"اكتب إجابتك",
+ toastLevel:"المستوى {n}", toastGold:"صفاء!", toastIce:"تجميد!", toastSun:"شمس!", toastStreak:"سلسلة ×{n}",
+ clearTitle:"أكملت المستوى {n}", clearBonus:"مكافأة البحيرة: {l} × 25 = +{b}", next:"المستوى {n}",
+ overTitle:"فاضت البحيرة", overInfo:"المستوى: {s} · الأفضل: {b}", again:"العب مجددًا", menu:"القائمة",
+ pause:"إيقاف مؤقت", resume:"متابعة", quit:"خروج", pauseLabel:"إيقاف مؤقت",
+ trainDone:"انتهى التدريب", accuracy:"الدقة", avgTime:"متوسط الوقت", answers:"إجابات صحيحة", missed:"فائتة",
+ games:"المباريات", bestLevel:"أفضل مستوى", byOp:"حسب العملية", hardest:"أكثر العمليات خطأً",
+ noData:"لا توجد بيانات بعد. العب مباراة!", reset:"إعادة تعيين", resetAsk:"حذف كل الإحصائيات؟",
+ resetYes:"نعم، احذف", cancel:"إلغاء", back:"رجوع", sec:"{n} ث", lives:"الأرواح", progress:"تقدم المستوى", del:"حذف",
+ skill:"مؤشر الحساب", r0:"رذاذ", r1:"زخّة", r2:"وابل", r3:"عاصفة", r4:"إعصار", r5:"مطر موسمي", newRecord:"رقم قياسي جديد!", toBeat:"ينقصك {n} نقطة لتحطيم رقمك القياسي", playAgain:"مباراة أخرى", rankUp:"رتبة جديدة: {r}!", record:"الرقم القياسي",
+ challenge:"تحدي الأصدقاء", chIntro:"العب مباراة بعمليات ثابتة، ثم أرسل الرمز: سيحصل صديقك على نفس القطرات تمامًا.", create:"أنشئ تحديًا", gotCode:"هل وصلك رمز؟", accept:"اقبل التحدي", badCode:"هذا الرمز غير صالح. تحقق من الأحرف السبعة.", chReady:"التحدي جاهز!", chSend:"أرسل هذا الرمز إلى أصدقائك:", share:"مشاركة", copy:"نسخ", copied:"تم نسخ الرسالة", win:"لقد فزت!", lose:"خسرت بفارق {n} نقطة", tie:"تعادل!", versus:"أنت {a} · صديقك {b}", sendBack:"أعد التحدي", retry:"أعد هذا التحدي", toBeatFriend:"النتيجة المطلوبة: {n}", ahead:"أنت في المقدمة!", shareMsg:"حققت {s} نقطة في لعبة Averse de Calculs! اقبل تحديّ بالرمز {c}" },
+es:{ title:"Lluvia de Cálculos", intro:"Resuelve cada gota antes de que toque el lago. La gota estalla en cuanto tu respuesta es correcta.",
+ mode:"Modo", adventure:"Aventura", training:"Práctica", difficulty:"Dificultad", facile:"Fácil", normal:"Normal", expert:"Experto",
+ play:"Jugar", soundOn:"Sonido activado", soundOff:"Sonido desactivado", stats:"Estadísticas", language:"Idioma",
+ table:"Tabla", allTables:"Todas", operation:"Operación", trainHint:"Sin vidas que perder: practica a tu ritmo.",
+ gold:"Borra todo", ice:"Ralentiza", sun:"Baja el lago", best:"Mejor puntuación: {n}",
+ level:"Nivel", score:"Puntos", correct:"Aciertos", typeAnswer:"Escribe tu respuesta",
+ toastLevel:"Nivel {n}", toastGold:"¡Despejado!", toastIce:"¡Helada!", toastSun:"¡Sol!", toastStreak:"Racha ×{n}",
+ clearTitle:"Nivel {n} superado", clearBonus:"Bono del lago: {l} × 25 = +{b}", next:"Nivel {n}",
+ overTitle:"El lago se desbordó", overInfo:"Nivel alcanzado: {s} · Mejor: {b}", again:"Jugar otra vez", menu:"Menú",
+ pause:"Pausa", resume:"Continuar", quit:"Salir", pauseLabel:"Pausar",
+ trainDone:"Práctica terminada", accuracy:"Precisión", avgTime:"Tiempo medio", answers:"Respuestas correctas", missed:"Perdidas",
+ games:"Partidas", bestLevel:"Mejor nivel", byOp:"Por operación", hardest:"Los más fallados",
+ noData:"Aún no hay datos. ¡Juega una partida!", reset:"Restablecer", resetAsk:"¿Borrar todas las estadísticas?",
+ resetYes:"Sí, borrar", cancel:"Cancelar", back:"Volver", sec:"{n} s", lives:"Vidas", progress:"Progreso del nivel", del:"Borrar",
+ skill:"Índice de cálculo", r0:"Llovizna", r1:"Chubasco", r2:"Aguacero", r3:"Tormenta", r4:"Tempestad", r5:"Monzón", newRecord:"¡Nuevo récord!", toBeat:"Faltan {n} puntos para batir tu récord", playAgain:"Otra partida", rankUp:"¡Nuevo rango: {r}!", record:"Récord",
+ challenge:"Reto entre amigos", chIntro:"Juega una partida con cálculos fijos y envía tu código: tu amigo recibirá exactamente las mismas gotas.", create:"Crear un reto", gotCode:"¿Recibiste un código?", accept:"Aceptar el reto", badCode:"Este código no es válido. Revisa los 7 caracteres.", chReady:"¡Reto listo!", chSend:"Envía este código a tus amigos:", share:"Compartir", copy:"Copiar", copied:"Mensaje copiado", win:"¡Ganaste!", lose:"Perdiste por {n} puntos", tie:"¡Empate!", versus:"Tú {a} · Tu amigo {b}", sendBack:"Devolver el reto", retry:"Repetir este reto", toBeatFriend:"Puntuación a batir: {n}", ahead:"¡Vas por delante!", shareMsg:"¡Hice {s} puntos en Averse de Calculs! Acepta mi reto con el código {c}" },
 };
+const LANG_NAMES = { fr:"Français", en:"English", ar:"العربية", es:"Español" };
+
+/* ---------- Settings, remembered on this device ---------- */
 function getPref(k,d){ try{ return localStorage.getItem(k) ?? d }catch(e){ return d } }
 function setPref(k,v){ try{ localStorage.setItem(k,v) }catch(e){} }
-let diff = getPref('averse-diff','normal'); if(!DIFFS[diff]) diff='normal';
+const navLang = (navigator.language||'fr').slice(0,2);
+let lang = getPref('averse-lang', I18N[navLang] ? navLang : 'fr'); if(!I18N[lang]) lang='fr';
+// one best score now (older versions kept one per difficulty)
+if(getPref('averse-best',null)===null){
+  const old = Math.max(...['facile','normal','expert'].map(d=>+getPref('averse-best-'+d,0)||0));
+  if(old) setPref('averse-best', old);
+}
+// Skill index 0–100: drives speed, density and number ranges; carried between games
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+let savedSkill = clamp(+getPref('averse-skill','0') || 0, 0, 100);
+const RANKS = [0,15,30,50,70,85];
+const rankName = s => t('r' + (RANKS.filter(r=>s>=r).length - 1));
+let mode = getPref('averse-mode','adventure'); if(mode!=='training') mode='adventure';
+let trainOp = getPref('averse-op','×'); if(!OPS.includes(trainOp)) trainOp='×';
+let trainTable = +getPref('averse-table','0') || 0;
 let soundOn = getPref('averse-sound','1')==='1';
 
-function bestScore(){ return +getPref('averse-best-'+diff, 0) || 0 }
-function saveBest(v){ setPref('averse-best-'+diff, v) }
-function showBest(){ const b = bestScore(); $('best').textContent = b ? `Meilleur score (${diff}) : ${b}` : ''; }
-
-function bindMenu(){
-  card.querySelectorAll('[data-diff]').forEach(b=>{
-    b.setAttribute('aria-pressed', b.dataset.diff===diff);
-    b.onclick = ()=>{ diff=b.dataset.diff; setPref('averse-diff',diff); bindMenu(); };
-  });
-  $('snd').textContent = soundOn ? 'Son activé' : 'Son coupé';
-  $('snd').onclick = ()=>{ soundOn=!soundOn; setPref('averse-sound', soundOn?'1':'0'); bindMenu(); if(soundOn) popSnd(1); };
-  $('start').onclick = start;
-  showBest();
+function t(k, v={}){ const s = I18N[lang][k] ?? I18N.fr[k] ?? k; return s.replace(/\{(\w+)\}/g,(_,x)=>v[x]); }
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang==='ar' ? 'rtl' : 'ltr';
+  $('pauseBtn').setAttribute('aria-label', t('pauseLabel'));
+  $('delKey').setAttribute('aria-label', t('del'));
+  $('progWrap').setAttribute('aria-label', t('progress'));
+  $('lives').setAttribute('aria-label', t('lives'));
+  if(!state) { $('lvlLbl').textContent = t('level'); $('scoreLbl').textContent = t('score'); }
+  else renderHud();
+  renderAnswer();
 }
-function showMenu(){ card.innerHTML = menuHTML; bindMenu(); }
 
-// Sounds, synthesized with Web Audio (no files needed)
+/* ---------- Statistics ---------- */
+const blankStats = () => ({ games:0, correct:0, wrong:0, missed:0, time:0, bestStage:0,
+  ops:{ '+':{c:0,m:0}, '-':{c:0,m:0}, '×':{c:0,m:0}, '÷':{c:0,m:0} }, facts:{} });
+function loadStats(){
+  try{ const s = JSON.parse(getPref('averse-stats','null')); if(s && s.ops) return s; }catch(e){}
+  return blankStats();
+}
+let stats = loadStats();
+function saveStats(){
+  const keys = Object.keys(stats.facts);
+  if(keys.length > 80){ keys.sort((a,b)=>stats.facts[b]-stats.facts[a]).slice(50).forEach(k=>delete stats.facts[k]); }
+  setPref('averse-stats', JSON.stringify(stats));
+}
+const pct = (a,b) => b ? Math.round(a/b*100) : 0;
+
+/* ---------- Sound, synthesized with Web Audio ---------- */
 let actx = null;
 function audio(){
   if(!soundOn) return null;
@@ -162,16 +292,19 @@ function audio(){
 }
 function tone(freq,dur,type='sine',vol=.2,slideTo){
   const a = audio(); if(!a) return;
-  const t = a.currentTime, o = a.createOscillator(), g = a.createGain();
-  o.type = type; o.frequency.setValueAtTime(freq,t);
-  if(slideTo) o.frequency.exponentialRampToValueAtTime(slideTo,t+dur);
-  g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.001,t+dur);
-  o.connect(g).connect(a.destination); o.start(t); o.stop(t+dur);
+  const tm = a.currentTime, o = a.createOscillator(), g = a.createGain();
+  o.type = type; o.frequency.setValueAtTime(freq,tm);
+  if(slideTo) o.frequency.exponentialRampToValueAtTime(slideTo,tm+dur);
+  g.gain.setValueAtTime(vol,tm); g.gain.exponentialRampToValueAtTime(.001,tm+dur);
+  o.connect(g).connect(a.destination); o.start(tm); o.stop(tm+dur);
 }
+const arp = (fs,gap,dur,type,vol) => fs.forEach((f,i)=>setTimeout(()=>tone(f,dur,type,vol),i*gap));
 const popSnd = c => { const s=Math.min(c,8); tone(480+s*60,.12,'sine',.25,900+s*90); };
 const wrongSnd = () => tone(190,.2,'square',.07,110);
-const goldSnd = () => [660,880,1100,1320].forEach((f,i)=>setTimeout(()=>tone(f,.16,'triangle',.16),i*70));
-const clearSnd = () => [523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,.22,'triangle',.18),i*110));
+const goldSnd = () => arp([660,880,1100,1320],70,.16,'triangle',.16);
+const iceSnd = () => arp([1800,1500,1200],60,.18,'sine',.12);
+const sunSnd = () => arp([440,554,659,880],90,.2,'sine',.16);
+const clearSnd = () => arp([523,659,784,1047],110,.22,'triangle',.18);
 const overSnd = () => tone(320,.7,'sawtooth',.06,80);
 function splashSnd(){
   const a = audio(); if(!a) return;
@@ -183,75 +316,131 @@ function splashSnd(){
 }
 function buzz(p){ if(!soundOn) return; try{ navigator.vibrate && navigator.vibrate(p) }catch(e){} }
 
-const rnd = (a,b) => a + Math.floor(Math.random()*(b-a+1));
+/* ---------- Problems ---------- */
+// R is Math.random, except while a challenge drop is generated: then it is a
+// seeded generator so every player gets the same k-th drop of each level
+let R = Math.random;
+const rnd = (a,b) => a + Math.floor(R()*(b-a+1));
+function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 
-// Difficulty per stage: operations unlocked, number ranges, speed and rain rate
-function stageCfg(n){
-  const D = DIFFS[diff];
-  const ops = n===1 ? ['+'] : n===2 ? ['+','-'] : n===3 ? ['+','-','×'] : ['+','-','×','÷'];
-  return {
-    ops, max: Math.min(9 + n*3, 40), tableMax: Math.min(4 + n, 12),
-    goal: 8 + n*2 + D.goal,
-    speed: (26 + n*6) * D.speed,                // pixels / second
-    every: Math.max(3.6 - n*0.3, 1.3) * D.every, // seconds between drops
-  };
+// Challenge codes: 7 characters holding the seed, the starting difficulty and the sender's score
+const ALPH = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function encodeCode(seed, bucket, score){
+  let n = (seed*32 + bucket)*32768 + clamp(score,0,32767), out = '';
+  for(let i=0;i<7;i++){ out = ALPH[n%32] + out; n = Math.floor(n/32); }
+  return out.slice(0,4) + '-' + out.slice(4);
 }
+function decodeCode(code){
+  const c = String(code).toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(c.length!==7) return null;
+  let n = 0;
+  for(const ch of c){ const i = ALPH.indexOf(ch); if(i<0) return null; n = n*32 + i; }
+  const score = n % 32768; n = Math.floor(n/32768);
+  const bucket = n % 32, seed = Math.floor(n/32);
+  return bucket>25 ? null : { seed, bucket, score };
+}
+
+// Adventure: everything comes from the hidden skill index plus how far the
+// player is into the current level (r), so each level starts calm and builds up.
+function advCfg(){
+  const s = state.skill;
+  const ops = s<8 ? ['+'] : s<18 ? ['+','-'] : s<35 ? ['+','-','×'] : OPS;
+  const fallTime = Math.max(3, 8 - s*0.05);               // 8 s at the start, 5.5 s at 50, 3 s at 100
+  const maxOn = Math.min(6, 1 + Math.floor(s/12));        // 1 drop, then 2 at 12, 3 at 24 … 6 at 60
+  return { ops, max: Math.round(9 + s*0.4), tableMax: Math.min(12, 4 + Math.floor(s/8)), table:0,
+           fallTime, maxOn, every: fallTime/maxOn * 0.9 };
+}
+// Practice: one operation (and optionally one table), slowly speeding up with success
+function trainCfg(){
+  const c = state.sess.c;
+  const fallTime = Math.max(4, 9 - c*0.1), maxOn = Math.min(4, 1 + Math.floor(c/8));
+  return { ops:[trainOp], max:20, tableMax:10, table:trainTable, fallTime, maxOn, every: fallTime/(maxOn+0.5) };
+}
+const cfgNow = () => state.mode==='training' ? trainCfg() : advCfg();
+const levelGoal = n => Math.min(10, 6 + Math.floor((n-1)/2));   // short levels: 6, 6, 7, 7, 8…
 
 function makeProblem(cfg){
   const op = cfg.ops[rnd(0,cfg.ops.length-1)];
   let a,b,r;
   if(op==='+'){ a=rnd(1,cfg.max); b=rnd(1,cfg.max); r=a+b; }
   else if(op==='-'){ a=rnd(2,cfg.max); b=rnd(1,a); r=a-b; }
-  else if(op==='×'){ a=rnd(2,cfg.tableMax); b=rnd(2,cfg.tableMax); r=a*b; }
-  else { b=rnd(2,cfg.tableMax); r=rnd(1,cfg.tableMax); a=b*r; }
-  return { text:`${a} ${op} ${b}`, result:r };
+  else if(op==='×'){
+    if(cfg.table){ a=cfg.table; b=rnd(1,10); if(R()<.5) [a,b]=[b,a]; }
+    else { a=rnd(2,cfg.tableMax); b=rnd(2,cfg.tableMax); }
+    r=a*b;
+  } else {
+    b = cfg.table || rnd(2,cfg.tableMax); r = rnd(1, cfg.table ? 10 : cfg.tableMax); a=b*r;
+  }
+  return { op, text:`${a} ${SYM[op]} ${b}`, result:r };
 }
 
-function start(){
+/* ---------- Game flow ---------- */
+function start(ch){
   audio();
   cancelAnimationFrame(raf);
   field.querySelectorAll('.drop').forEach(d=>d.remove());
-  state = { stage:1, score:0, lives:MAX_LIVES, solved:0, drops:[], timer:1, combo:0, running:true };
-  startStage();
+  const gmode = ch ? 'challenge' : mode;
+  const s0 = ch ? ch.bucket*4 : Math.round(savedSkill*0.5);   // warm-up: start at half of last time's level
+  state = { mode:gmode, ch: ch || null, aheadShown:false, spawnK:0, stage:1, score:0, lives:MAX_LIVES, solved:0, drops:[], timer:0.8, combo:0, running:true,
+            time:0, slowUntil:0, skill:s0, peak:s0, best:bestScore(), recordShown:false,
+            goal: gmode==='training' ? Infinity : levelGoal(1),
+            lvl:{c:0,w:0,m:0,frac:0}, sess:{c:0,w:0,m:0,time:0} };
+  stats.games++; saveStats();
+  state.cfg = cfgNow();
+  overlay.hidden = true; $('pauseBtn').hidden = false;
+  typed=''; renderAnswer(); renderHud();
+  toast(state.mode==='training' ? t('training')
+      : (ch && ch.score) ? t('toBeatFriend',{n:ch.score}) : t('toastLevel',{n:1}));
+  run();
 }
-function startStage(){
-  state.cfg = stageCfg(state.stage);
-  state.solved = 0; state.spawned = 0; state.timer = 0.6;
-  overlay.hidden = true; typed=''; renderAnswer(); renderHud();
-  toast(`Niveau ${state.stage}`);
-  last = performance.now(); raf = requestAnimationFrame(loop);
-}
+function run(){ state.running = true; last = performance.now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); }
+
+function fallDist(){ return field.clientHeight - lake.offsetHeight - 42 + 66; }
 
 function spawn(){
+  if(state.ch) R = mulberry32(state.ch.seed*1000003 + state.stage*7919 + state.spawnK*104729);
+  state.spawnK++;
   const p = makeProblem(state.cfg);
   const el = document.createElement('div');
-  const gold = state.stage>1 && Math.random()<0.07;
-  el.className = 'drop' + (gold?' gold':'');
+  let kind = '';
+  const r = R();
+  R = Math.random;
+  if(state.mode!=='training' && (state.stage>1 || state.skill>=15)){
+    if(r < .05) kind='gold';
+    else if(r < .11) kind='ice';
+    else if(r < .16 && state.lives < MAX_LIVES) kind='sun';
+  }
+  el.className = 'drop' + (kind ? ' '+kind : '');
   el.innerHTML = `<b>${p.text}</b>`;
   const w = field.clientWidth;
-  // avoid stacking on a recent drop
   let x, tries=0;
-  do { x = rnd(4, Math.max(4, w-60)); tries++; }
+  do { x = rnd(4, Math.max(4, w-60)); tries++; }   // avoid stacking on a recent drop
   while(tries<8 && state.drops.some(d=>d.y<72 && Math.abs(d.x-x)<56));
-  const d = { el, x, y:-66, ...p, gold };
+  const d = { el, x, y:-66, ...p, kind, born:state.time, fall:state.cfg.fallTime, v: fallDist()/state.cfg.fallTime };
   el.style.transform = `translate(${x}px,${d.y}px)`;
   field.insertBefore(el, lake);
-  state.drops.push(d); state.spawned++;
+  state.drops.push(d);
 }
 
-function loop(t){
-  if(!state.running) return;
-  const dt = Math.min((t-last)/1000, 0.05); last = t;
-  const remaining = state.cfg.goal - state.solved - state.drops.length;
+function loop(tm){
+  if(!state || !state.running) return;
+  const dt = Math.min((tm-last)/1000, 0.05); last = tm;
+  state.time += dt;
+  state.cfg = cfgNow();
   state.timer -= dt;
-  if(state.timer<=0 && remaining>0){ spawn(); state.timer = state.cfg.every * (0.8+Math.random()*0.4); }
-  if(state.drops.length===0 && remaining>0 && state.timer>0.4) state.timer = 0.4;
+  if(state.drops.length===0 && state.timer>0.4) state.timer = 0.4;
+  if(state.timer<=0 && state.drops.length < state.cfg.maxOn){
+    spawn(); state.timer = state.cfg.every * (0.8+Math.random()*0.4);
+  }
 
+  const frozen = state.time < state.slowUntil;
+  field.classList.toggle('frozen', frozen);
+  const slow = frozen ? 0.35 : 1;
   const floor = field.clientHeight - lake.offsetHeight - 42;
   for(const d of [...state.drops]){
-    d.y += state.cfg.speed*dt;
+    d.y += d.v*slow*dt;
     d.el.style.transform = `translate(${d.x}px,${d.y}px)`;
-    if(d.y > floor) miss(d);
+    if(d.y > floor){ miss(d); if(!state.running) return; }
   }
   if(state.running) raf = requestAnimationFrame(loop);
 }
@@ -264,7 +453,10 @@ function remove(d, cls){
 
 function miss(d){
   remove(d,'splash'); splashSnd(); buzz(90);
-  state.lives--; state.combo=0;
+  state.combo=0; state.sess.m++; state.lvl.m++;
+  stats.missed++; stats.ops[d.op].m++; stats.facts[d.text] = (stats.facts[d.text]||0)+1; saveStats();
+  if(state.mode!=='training') state.lives--;
+  if(state.mode==='adventure') state.skill = clamp(state.skill - 5, 0, 100);   // ease off after a miss
   renderHud();
   if(state.lives<=0) gameOver();
 }
@@ -272,8 +464,8 @@ function miss(d){
 // the lowest matching drop is the most urgent one
 function findHit(){ const v = +typed; return state.drops.filter(d=>d.result===v).sort((a,b)=>b.y-a.y)[0]; }
 
-// Auto-validation: pops as soon as the typed number matches a drop;
-// flags an error once no falling answer can start with what was typed
+// Pops as soon as the typed number matches a drop; flags an error once
+// no falling answer can start with what was typed
 function check(){
   if(!state || !state.running || typed==='' || typed==='-' || !state.drops.length) return;
   const d = findHit();
@@ -286,70 +478,309 @@ function submit(){
   d ? hit(d) : wrong();
 }
 function wrong(){
-  state.combo=0; wrongSnd(); buzz([40,40,40]);
+  state.combo=0; state.sess.w++; state.lvl.w++; stats.wrong++; saveStats();
+  wrongSnd(); buzz([40,40,40]);
   answerEl.classList.remove('bad'); void answerEl.offsetWidth; answerEl.classList.add('bad');
   typed=''; setTimeout(renderAnswer,300);
 }
 function hit(d){
-  {
-    state.combo++;
-    const pts = 10*state.stage + Math.min(state.combo-1,5)*5;
-    if(d.gold){
-      const all = [...state.drops];
-      all.forEach(x=>remove(x,'pop'));
-      state.solved += all.length; state.score += pts*all.length;
-      toast('Éclaircie !'); goldSnd(); buzz(60);
-    } else {
-      remove(d,'pop'); state.solved++; state.score += pts; popSnd(state.combo);
-      if(state.combo>=3) toast(`Série ×${state.combo}`);
-    }
-    typed=''; renderAnswer(); renderHud();
-    if(state.solved >= state.cfg.goal) stageClear();
+  const took = state.time - d.born;
+  state.combo++; state.sess.c++; state.sess.time += took;
+  state.lvl.c++; state.lvl.frac += Math.min(1, took / d.fall);
+  stats.correct++; stats.time += took; stats.ops[d.op].c++; saveStats();
+  if(state.mode!=='training'){
+    const f = took / d.fall;
+    const step = state.mode==='challenge' ? 1.5 : f < .4 ? 2.5 : f < .75 ? 1.5 : 0.5;
+    state.skill = clamp(state.skill + step, 0, 100);
+    state.peak = Math.max(state.peak, state.skill);
   }
+  const pts = 10 + Math.floor(state.skill/5) + Math.min(state.combo-1,5)*5;
+
+  if(d.kind==='gold'){
+    const all = [...state.drops];
+    all.forEach(x=>remove(x,'pop'));
+    state.solved += all.length; state.score += pts*all.length;
+    toast(t('toastGold')); goldSnd(); buzz(60);
+  } else {
+    remove(d,'pop'); state.solved++; state.score += pts;
+    if(d.kind==='ice'){ state.slowUntil = state.time + 5; toast(t('toastIce')); iceSnd(); }
+    else if(d.kind==='sun'){ state.lives = Math.min(MAX_LIVES, state.lives+1); toast(t('toastSun')); sunSnd(); }
+    else { popSnd(state.combo); if(state.combo>=3) toast(t('toastStreak',{n:state.combo})); }
+  }
+  if(state.mode==='training') state.score = state.sess.c;
+  else if(state.mode==='challenge'){
+    if(state.ch.score && !state.aheadShown && state.score>state.ch.score){ state.aheadShown = true; setTimeout(()=>toast(t('ahead')), 500); }
+  }
+  else if(!state.recordShown && state.best>0 && state.score>state.best){ state.recordShown = true; setTimeout(()=>toast(t('newRecord')), 500); }
+  typed=''; renderAnswer();
+  if(state.solved >= state.goal) levelUp();
+  renderHud();
 }
 
-function stageClear(){
-  state.running=false; clearSnd();
-  const bonus = state.lives*25;
-  state.score += bonus; renderHud();
-  card.innerHTML = `<h2>Niveau ${state.stage} réussi</h2>
-    <p>Bonus lac : ${state.lives} × 25 = <b>+${bonus}</b></p>
-    <p class="big">Score ${state.score}</p>
-    <button class="btn" id="next">Niveau ${state.stage+1}</button>`;
-  overlay.hidden=false;
-  $('next').onclick = ()=>{ state.stage++; state.running=true; startStage(); };
-  $('next').focus();
+// Level done: no pause screen, just a short breather. The next level is tuned
+// from how this one went, in small steps the player should not notice.
+function levelUp(){
+  const L = state.lvl;
+  let delta = state.mode==='challenge' ? 0 : L.m===0 && L.w<=1 ? 3 : L.m===0 ? 1 : L.m===1 ? 0 : -3;
+  const before = rankName(state.skill);
+  state.skill = clamp(state.skill + delta, 0, 100);
+  state.peak = Math.max(state.peak, state.skill);
+  state.score += 20*state.stage;
+  state.stage++; state.solved = 0; state.spawnK = 0; state.goal = levelGoal(state.stage);
+  state.lvl = {c:0,w:0,m:0,frac:0};
+  clearSnd();
+  const after = rankName(state.skill);
+  toast(state.mode==='adventure' && after!==before ? t('rankUp',{r:after}) : t('toastLevel',{n:state.stage}));
+}
+
+function stopGame(){
+  if(!state) return;
+  state.running=false; cancelAnimationFrame(raf);
+  $('pauseBtn').hidden = true; field.classList.remove('frozen');
+}
+function clearDrops(){ state.drops.forEach(d=>d.el.remove()); state.drops=[]; }
+function bestScore(){ return +getPref('averse-best', 0) || 0 }
+
+// Saves best score, best level and the skill index; returns what changed
+function finishAdventure(){
+  const prevBest = bestScore(), isRecord = state.score > prevBest && state.score > 0;
+  if(isRecord) setPref('averse-best', state.score);
+  stats.bestStage = Math.max(stats.bestStage, state.stage); saveStats();
+  const prevSkill = savedSkill;
+  savedSkill = clamp(Math.max(prevSkill - 5, Math.round((prevSkill + state.peak)/2)), 0, 100);
+  setPref('averse-skill', savedSkill);
+  return { isRecord, best: Math.max(prevBest, state.score), skillDelta: savedSkill - prevSkill };
+}
+
+function skillBlock(delta){
+  const sign = delta>0 ? '+'+delta : delta<0 ? String(delta) : '';
+  return `<div class="skill">
+    <div class="skill-top"><span>${t('skill')}</span><b>${savedSkill}</b>${sign ? `<small class="${delta>0?'up':'down'}">${sign}</small>` : ''}<em>${rankName(savedSkill)}</em></div>
+    <div class="bar"><i style="width:${savedSkill}%"></i></div>
+  </div>`;
 }
 
 function gameOver(){
-  state.running=false; overSnd(); buzz(300);
-  const best = Math.max(bestScore(), state.score); saveBest(best);
+  stopGame(); overSnd(); buzz(300);
+  if(state.mode==='challenge'){ stats.bestStage = Math.max(stats.bestStage, state.stage); saveStats(); return setTimeout(challengeOver, 400); }
+  const res = finishAdventure();
   setTimeout(()=>{
-    state.drops.forEach(d=>d.el.remove()); state.drops=[];
-    card.innerHTML = `<h2>Le lac a débordé</h2>
-      <p class="big">Score ${state.score}</p>
-      <p>Niveau atteint : ${state.stage} · Meilleur : ${best}</p>
-      <button class="btn" id="again">Rejouer</button>
-      <button class="link" id="menu">Changer de difficulté</button>`;
-    overlay.hidden=false; $('again').onclick = start; $('menu').onclick = showMenu; $('again').focus();
+    clearDrops();
+    const gap = res.best - state.score + 1;
+    show(`<h2>${res.isRecord ? t('newRecord') : t('overTitle')}</h2>
+      <p class="big">${t('score')} ${state.score}</p>
+      ${res.isRecord ? '' : `<p>${t('toBeat',{n:gap})}</p>`}
+      ${skillBlock(res.skillDelta)}
+      <p>${t('overInfo',{s:state.stage,b:res.best})}</p>
+      <button class="btn" id="again">${t('playAgain')}</button>
+      <button class="link" id="menu">${t('menu')}</button>`, '#again');
+    if(res.isRecord) clearSnd();
+    $('again').onclick = ()=>start(); $('menu').onclick = ()=>{ state=null; renderMenu(); };
   },400);
 }
 
+function trainSummary(){
+  stopGame(); clearDrops();
+  const s = state.sess, tot = s.c+s.w+s.m;
+  show(`<h2>${t('trainDone')}</h2>
+    <div class="tiles">
+      <div class="tile"><b>${s.c}</b><span>${t('answers')}</span></div>
+      <div class="tile"><b>${pct(s.c,tot)}%</b><span>${t('accuracy')}</span></div>
+      <div class="tile"><b>${s.c ? t('sec',{n:(s.time/s.c).toFixed(1)}) : '–'}</b><span>${t('avgTime')}</span></div>
+      <div class="tile"><b>${s.m}</b><span>${t('missed')}</span></div>
+    </div>
+    <button class="btn" id="again">${t('playAgain')}</button>
+    <button class="link" id="menu">${t('menu')}</button>`, '#again');
+  $('again').onclick = ()=>start(); $('menu').onclick = ()=>{ state=null; renderMenu(); };
+}
+
+function show(html, focusSel){
+  card.innerHTML = html; overlay.hidden = false; overlay.scrollTop = 0;
+  const f = focusSel && card.querySelector(focusSel); if(f) f.focus({preventScroll:true});
+}
+
+function pause(){
+  if(!state || !state.running) return;
+  state.running=false; cancelAnimationFrame(raf); $('pauseBtn').hidden = true;
+  show(`<h2>${t('pause')}</h2>
+    <button class="btn" id="resume">${t('resume')}</button>
+    <button class="link" id="quit">${t('quit')}</button>`, '#resume');
+  $('resume').onclick = ()=>{ overlay.hidden = true; $('pauseBtn').hidden = false; audio(); run(); };
+  $('quit').onclick = ()=>{
+    if(state.mode==='training') return trainSummary();
+    if(state.mode==='adventure') finishAdventure();
+    stopGame(); clearDrops(); state=null; renderMenu();
+  };
+}
+
+/* ---------- Friend challenges ---------- */
+function shareMessage(code, score){ return t('shareMsg',{s:score, c:code}); }
+async function shareText(text){
+  const S = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Share;
+  try{
+    if(S){ await S.share({ text }); return true; }
+    if(navigator.share){ await navigator.share({ text }); return true; }
+  }catch(e){ if(e && e.name==='AbortError') return true; }
+  return false;
+}
+function copyText(text, el){
+  const fallback = ()=>{ try{ const r=document.createRange(); r.selectNodeContents(el); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); }catch(e){} };
+  try{ navigator.clipboard.writeText(text).then(()=>toast(t('copied')), fallback); }catch(e){ fallback(); }
+}
+function bindShare(text){
+  const msg = $('msg');
+  $('shareBtn').onclick = async ()=>{ if(!(await shareText(text))) copyText(text, msg); };
+  $('copyBtn').onclick = ()=>copyText(text, msg);
+}
+
+function renderChallenge(err){
+  show(`<h2>${t('challenge')}</h2>
+    <p>${t('chIntro')}</p>
+    <button class="btn" id="create">${t('create')}</button>
+    <h3>${t('gotCode')}</h3>
+    <input id="code" class="codein" placeholder="ABCD-EFG" maxlength="9" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="${t('gotCode')}">
+    <button class="btn ghost" id="accept">${t('accept')}</button>
+    ${err ? `<p class="err">${t('badCode')}</p>` : ''}
+    <button class="link" id="back">${t('back')}</button>`, err ? '#code' : '#create');
+  $('create').onclick = ()=>{
+    const bucket = clamp(Math.round(Math.max(0, savedSkill - 8)/4), 0, 25);
+    start({ seed: Math.floor(Math.random()*32768), bucket, score:0 });
+  };
+  const accept = ()=>{ const c = decodeCode($('code').value); c ? start(c) : renderChallenge(true); };
+  $('accept').onclick = accept;
+  $('code').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); accept(); } });
+  $('back').onclick = ()=>renderMenu('#chBtn');
+}
+
+function challengeOver(){
+  clearDrops();
+  const ch = state.ch, me = state.score, code = encodeCode(ch.seed, ch.bucket, me);
+  const text = shareMessage(code, me);
+  let head;
+  if(!ch.score) head = `<h2>${t('chReady')}</h2><p class="big">${t('score')} ${me}</p><p>${t('chSend')}</p>`;
+  else {
+    const title = me>ch.score ? t('win') : me<ch.score ? t('lose',{n:ch.score-me}) : t('tie');
+    head = `<h2>${title}</h2><p class="big">${t('versus',{a:me,b:ch.score})}</p><p>${t('chSend')}</p>`;
+    if(me>ch.score) clearSnd();
+  }
+  show(`${head}
+    <div class="code">${code}</div>
+    <p class="msg" id="msg">${text}</p>
+    <div class="row">
+      <button class="btn" id="shareBtn">${ch.score ? t('sendBack') : t('share')}</button>
+      <button class="btn ghost" id="copyBtn">${t('copy')}</button>
+    </div>
+    <button class="link" id="retry">${t('retry')}</button>
+    <button class="link" id="menu">${t('menu')}</button>`, '#shareBtn');
+  bindShare(text);
+  $('retry').onclick = ()=>start(ch);
+  $('menu').onclick = ()=>{ state=null; renderMenu(); };
+}
+
+/* ---------- Screens ---------- */
+function renderMenu(focusSel){
+  const pressed = (on) => `aria-pressed="${on}"`;
+  const tableOpts = [0,2,3,4,5,6,7,8,9,10,11,12].map(n=>`<option value="${n}" ${n===trainTable?'selected':''}>${n? n : t('allTables')}</option>`).join('');
+  const b = bestScore();
+  const modeBlock = mode==='adventure' ? `
+    ${skillBlock(0)}
+    <div class="legend">
+      <span><i class="mini" style="background:var(--sun)"></i>${t('gold')}</span>
+      <span><i class="mini" style="background:var(--ice)"></i>${t('ice')}</span>
+      <span><i class="mini" style="background:var(--sunny)"></i>${t('sun')}</span>
+    </div>
+    ${b ? `<p>${t('best',{n:b})}</p>` : ''}` : `
+    <div class="seg ops" role="group" aria-label="${t('operation')}">
+      ${OPS.map(o=>`<button data-op="${o}" ${pressed(o===trainOp)}>${SYM[o]}</button>`).join('')}
+    </div>
+    ${(trainOp==='×'||trainOp==='÷') ? `<label class="pick">${t('table')} <select id="table">${tableOpts}</select></label>` : ''}
+    <p>${t('trainHint')}</p>`;
+
+  show(`<h1>${t('title')}</h1>
+    <p>${t('intro')}</p>
+    <div class="seg" role="group" aria-label="${t('mode')}">
+      <button data-mode="adventure" ${pressed(mode==='adventure')}>${t('adventure')}</button>
+      <button data-mode="training" ${pressed(mode==='training')}>${t('training')}</button>
+    </div>
+    ${modeBlock}
+    <button class="btn" id="start">${t('play')}</button>
+    <button class="btn ghost" id="chBtn">${t('challenge')}</button>
+    <div class="row">
+      <button class="link" id="statsBtn">${t('stats')}</button>
+      <button class="link" id="snd">${soundOn ? t('soundOn') : t('soundOff')}</button>
+      <select id="lang" aria-label="${t('language')}">
+        ${Object.entries(LANG_NAMES).map(([k,v])=>`<option value="${k}" ${k===lang?'selected':''}>${v}</option>`).join('')}
+      </select>
+    </div>`, focusSel);
+
+  card.querySelectorAll('[data-mode]').forEach(x=>x.onclick=()=>{ mode=x.dataset.mode; setPref('averse-mode',mode); renderMenu(`[data-mode="${mode}"]`); });
+  card.querySelectorAll('[data-op]').forEach(x=>x.onclick=()=>{ trainOp=x.dataset.op; setPref('averse-op',trainOp); renderMenu(`[data-op="${trainOp}"]`); });
+  if($('table')) $('table').onchange = e=>{ trainTable=+e.target.value; setPref('averse-table',trainTable); };
+  $('snd').onclick = ()=>{ soundOn=!soundOn; setPref('averse-sound', soundOn?'1':'0'); renderMenu('#snd'); if(soundOn) popSnd(1); };
+  $('lang').onchange = e=>{ lang=e.target.value; setPref('averse-lang',lang); applyLang(); renderMenu('#lang'); };
+  $('statsBtn').onclick = ()=>renderStats();
+  $('start').onclick = ()=>start();
+  $('chBtn').onclick = ()=>renderChallenge();
+}
+
+function renderStats(confirming){
+  const tot = stats.correct + stats.wrong + stats.missed;
+  const hard = Object.entries(stats.facts).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const body = !tot ? `<p>${t('noData')}</p>` : `
+    <div class="tiles">
+      <div class="tile"><b>${savedSkill}</b><span>${t('skill')} · ${rankName(savedSkill)}</span></div>
+      <div class="tile"><b>${bestScore() || '–'}</b><span>${t('record')}</span></div>
+      <div class="tile"><b>${stats.games}</b><span>${t('games')}</span></div>
+      <div class="tile"><b>${pct(stats.correct,tot)}%</b><span>${t('accuracy')}</span></div>
+      <div class="tile"><b>${stats.correct ? t('sec',{n:(stats.time/stats.correct).toFixed(1)}) : '–'}</b><span>${t('avgTime')}</span></div>
+      <div class="tile"><b>${stats.bestStage || '–'}</b><span>${t('bestLevel')}</span></div>
+    </div>
+    <h3>${t('byOp')}</h3>
+    <div class="oprows">
+      ${OPS.map(o=>{ const s=stats.ops[o], n=s.c+s.m, p=pct(s.c,n);
+        return `<div class="oprow"><span class="sym">${SYM[o]}</span><div class="bar"><i style="width:${n?p:0}%"></i></div><span class="pct">${n?p+'%':'–'}</span></div>`; }).join('')}
+    </div>
+    ${hard.length ? `<h3>${t('hardest')}</h3><div class="chips">${hard.map(([k,v])=>`<span class="chip">${k}<small>×${v}</small></span>`).join('')}</div>` : ''}`;
+  const foot = confirming ? `
+    <p>${t('resetAsk')}</p>
+    <div class="row"><button class="btn" id="yes" style="background:var(--coral)">${t('resetYes')}</button><button class="link" id="no">${t('cancel')}</button></div>` : `
+    <button class="btn ghost" id="back">${t('back')}</button>
+    ${tot ? `<button class="link" id="reset">${t('reset')}</button>` : ''}`;
+  show(`<h2>${t('stats')}</h2>${body}${foot}`, confirming ? '#no' : '#back');
+  if(confirming){
+    $('yes').onclick = ()=>{
+      stats = blankStats(); saveStats();
+      savedSkill = 0; setPref('averse-skill',0); setPref('averse-best',0);
+      renderStats();
+    };
+    $('no').onclick = ()=>renderStats();
+  } else {
+    $('back').onclick = ()=>renderMenu('#statsBtn');
+    if($('reset')) $('reset').onclick = ()=>renderStats(true);
+  }
+}
+
 function renderHud(){
-  $('stage').textContent = state.stage;
+  const tr = state.mode==='training';
+  $('lvlLbl').textContent = tr ? t('training') : t('level');
+  $('stage').textContent = tr ? (SYM[trainOp] + (trainTable && (trainOp==='×'||trainOp==='÷') ? trainTable : '')) : state.stage;
+  $('scoreLbl').textContent = tr ? t('correct') : t('score');
   $('score').textContent = state.score;
-  $('prog').style.width = Math.min(100, state.solved/state.cfg.goal*100)+'%';
+  $('progWrap').classList.toggle('off', tr);
+  $('prog').style.width = tr ? '0' : Math.min(100, state.solved/state.goal*100)+'%';
+  $('lives').hidden = tr;
   $('lives').innerHTML = Array.from({length:MAX_LIVES},(_,i)=>`<span class="${i<state.lives?'':'off'}"></span>`).join('');
   lake.style.height = (34 + (MAX_LIVES-state.lives)*40) + 'px';
 }
 function renderAnswer(){
   answerEl.classList.remove('bad');
   answerEl.classList.toggle('empty', typed==='');
-  answerEl.textContent = typed==='' ? 'Tape ta réponse' : typed.replace('-','−');
+  answerEl.textContent = typed==='' ? t('typeAnswer') : typed.replace('-','−');
 }
 let toastT;
-function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),900); }
+function toast(msg){ const el=$('toast'); el.textContent=msg; el.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('on'),900); }
 
+/* ---------- Input ---------- */
 function press(k){
   if(k==='ok') return submit();
   if(k==='del') typed = typed.slice(0,-1);
@@ -364,14 +795,21 @@ $('keys').addEventListener('pointerdown', e=>{
   e.preventDefault(); press(b.dataset.k || b.textContent);
 });
 document.addEventListener('keydown', e=>{
+  if(e.target.tagName==='SELECT' || e.target.tagName==='INPUT') return;
   if(/^[0-9]$/.test(e.key)) press(e.key);
   else if(e.key==='Backspace') press('del');
   else if(e.key==='-') press('neg');
-  else if(e.key==='Enter'){ if(e.target.tagName==='BUTTON') return; if(!overlay.hidden){ const b=card.querySelector('.btn'); b&&b.click(); } else press('ok'); }
+  else if(e.key==='Escape') pause();
+  else if(e.key==='Enter'){
+    if(e.target.tagName==='BUTTON') return;
+    if(!overlay.hidden){ const b=card.querySelector('.btn'); b&&b.click(); } else press('ok');
+  }
 });
-const menuHTML = card.innerHTML;
-bindMenu();
-document.addEventListener('visibilitychange',()=>{ if(!document.hidden && state && state.running){ last=performance.now(); } });
+$('pauseBtn').onclick = pause;
+document.addEventListener('visibilitychange',()=>{ if(document.hidden) pause(); });
+
+applyLang();
+renderMenu();
 </script>
 
 </body>
