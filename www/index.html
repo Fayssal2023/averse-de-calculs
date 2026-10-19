@@ -112,6 +112,7 @@ select{font:700 14px var(--body);color:var(--ink);background:var(--panel-2);bord
 .goal small{color:var(--sun);font-weight:800}
 .rec .bar i{background:var(--sun)}
 .app.menu .dock{display:none}
+.hint{font-size:13px}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
 .tile{background:var(--panel-2);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px}
 .tile b{font-family:var(--display);font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate}
@@ -193,7 +194,7 @@ fr:{ title:"Averse de Calculs", intro:"Résous chaque goutte avant qu'elle touch
  noData:"Pas encore de données. Joue une partie !", reset:"Réinitialiser", resetAsk:"Effacer toutes les statistiques ?",
  resetYes:"Oui, effacer", cancel:"Annuler", back:"Retour", sec:"{n} s", lives:"Vies", progress:"Progression du niveau", del:"Effacer",
  skill:"Indice de calcul", r0:"Bruine", r1:"Ondée", r2:"Averse", r3:"Orage", r4:"Tempête", r5:"Mousson", newRecord:"Nouveau record !", toBeat:"Encore {n} points pour battre ton record", playAgain:"Encore une partie", rankUp:"Nouveau rang : {r} !", record:"Record",
- challenge:"Défi entre amis", chIntro:"Joue une partie avec des calculs fixés, puis envoie ton code : ton ami recevra exactement les mêmes gouttes.", create:"Créer un défi", gotCode:"Tu as reçu un code ?", accept:"Relever le défi", badCode:"Ce code n'est pas valide. Vérifie les 7 caractères.", chReady:"Défi prêt !", chSend:"Envoie ce code à tes amis :", share:"Partager", copy:"Copier", copied:"Message copié", win:"Tu as gagné !", lose:"Perdu de {n} points", tie:"Égalité !", versus:"Toi {a} · Ton ami {b}", sendBack:"Renvoyer le défi", retry:"Rejouer ce défi", toBeatFriend:"Score à battre : {n}", ahead:"Tu passes devant !", cheers:"Bien joué !|Super !|Excellent !|Génial !|Incroyable !|Imbattable !", nearRecord:"Record en vue !", goal:"Objectif du jour", goalDone:"Objectif du jour atteint !", day1:"1 jour d'affilée", days:"{n} jours d'affilée", correctN:"Réponses justes", bestStreak:"Meilleure série", shareMsg:"J'ai fait {s} points à Averse de Calculs ! Relève mon défi avec le code {c}" },
+ challenge:"Défi entre amis", chIntro:"Joue une partie avec des calculs fixés, puis envoie ton code : ton ami recevra exactement les mêmes gouttes.", create:"Créer un défi", gotCode:"Tu as reçu un code ?", accept:"Relever le défi", badCode:"Ce code n'est pas valide. Vérifie les 7 caractères.", chReady:"Défi prêt !", chSend:"Envoie ce code à tes amis :", share:"Partager", copy:"Copier", copied:"Message copié", win:"Tu as gagné !", lose:"Perdu de {n} points", tie:"Égalité !", versus:"Toi {a} · Ton ami {b}", sendBack:"Renvoyer le défi", retry:"Rejouer ce défi", toBeatFriend:"Score à battre : {n}", ahead:"Tu passes devant !", cheers:"Bien joué !|Super !|Excellent !|Génial !|Incroyable !|Imbattable !", nearRecord:"Record en vue !", goal:"Objectif du jour", goalDone:"Objectif du jour atteint !", day1:"1 jour d'affilée", days:"{n} jours d'affilée", correctN:"Réponses justes", bestStreak:"Meilleure série", review:"À revoir", reviewHint:"Ces calculs reviendront plus souvent jusqu'à ce que tu les maîtrises.", mastered:"Maîtrisé : {f} !", continueAt:"Continuer · niveau {n}", shareMsg:"J'ai fait {s} points à Averse de Calculs ! Relève mon défi avec le code {c}" },
 en:{ title:"Math Rain", intro:"Solve each drop before it hits the lake. The drop pops as soon as your answer is right.",
  mode:"Mode", adventure:"Adventure", training:"Practice", difficulty:"Difficulty", facile:"Easy", normal:"Normal", expert:"Expert",
  play:"Play", soundOn:"Sound on", soundOff:"Sound off", stats:"Statistics", language:"Language",
@@ -209,7 +210,7 @@ en:{ title:"Math Rain", intro:"Solve each drop before it hits the lake. The drop
  noData:"No data yet. Play a game!", reset:"Reset", resetAsk:"Erase all statistics?",
  resetYes:"Yes, erase", cancel:"Cancel", back:"Back", sec:"{n} s", lives:"Lives", progress:"Level progress", del:"Delete",
  skill:"Math index", r0:"Drizzle", r1:"Shower", r2:"Downpour", r3:"Storm", r4:"Tempest", r5:"Monsoon", newRecord:"New record!", toBeat:"{n} more points to beat your record", playAgain:"One more game", rankUp:"New rank: {r}!", record:"Record",
- challenge:"Friend challenge", chIntro:"Play a game with fixed calculations, then send your code: your friend gets exactly the same drops.", create:"Create a challenge", gotCode:"Got a code?", accept:"Accept the challenge", badCode:"This code isn't valid. Check the 7 characters.", chReady:"Challenge ready!", chSend:"Send this code to your friends:", share:"Share", copy:"Copy", copied:"Message copied", win:"You won!", lose:"Lost by {n} points", tie:"It's a tie!", versus:"You {a} · Your friend {b}", sendBack:"Send it back", retry:"Replay this challenge", toBeatFriend:"Score to beat: {n}", ahead:"You're ahead!", cheers:"Nice!|Great!|Excellent!|Awesome!|Incredible!|Unstoppable!", nearRecord:"Record in sight!", goal:"Daily goal", goalDone:"Daily goal reached!", day1:"1 day in a row", days:"{n} days in a row", correctN:"Correct answers", bestStreak:"Best streak", shareMsg:"I scored {s} points in Averse de Calculs! Take my challenge with code {c}" },
+ challenge:"Friend challenge", chIntro:"Play a game with fixed calculations, then send your code: your friend gets exactly the same drops.", create:"Create a challenge", gotCode:"Got a code?", accept:"Accept the challenge", badCode:"This code isn't valid. Check the 7 characters.", chReady:"Challenge ready!", chSend:"Send this code to your friends:", share:"Share", copy:"Copy", copied:"Message copied", win:"You won!", lose:"Lost by {n} points", tie:"It's a tie!", versus:"You {a} · Your friend {b}", sendBack:"Send it back", retry:"Replay this challenge", toBeatFriend:"Score to beat: {n}", ahead:"You're ahead!", cheers:"Nice!|Great!|Excellent!|Awesome!|Incredible!|Unstoppable!", nearRecord:"Record in sight!", goal:"Daily goal", goalDone:"Daily goal reached!", day1:"1 day in a row", days:"{n} days in a row", correctN:"Correct answers", bestStreak:"Best streak", review:"To practice", reviewHint:"These will come back more often until you master them.", mastered:"Mastered: {f}!", continueAt:"Continue · level {n}", shareMsg:"I scored {s} points in Averse de Calculs! Take my challenge with code {c}" },
 ar:{ title:"مطر الحساب", intro:"حُلّ كل قطرة قبل أن تصل إلى البحيرة. تنفجر القطرة بمجرد أن تكون إجابتك صحيحة.",
  mode:"الوضع", adventure:"مغامرة", training:"تدريب", difficulty:"الصعوبة", facile:"سهل", normal:"عادي", expert:"خبير",
  play:"العب", soundOn:"الصوت مفعّل", soundOff:"الصوت مطفأ", stats:"الإحصائيات", language:"اللغة",
@@ -225,7 +226,7 @@ ar:{ title:"مطر الحساب", intro:"حُلّ كل قطرة قبل أن تص
  noData:"لا توجد بيانات بعد. العب مباراة!", reset:"إعادة تعيين", resetAsk:"حذف كل الإحصائيات؟",
  resetYes:"نعم، احذف", cancel:"إلغاء", back:"رجوع", sec:"{n} ث", lives:"الأرواح", progress:"تقدم المستوى", del:"حذف",
  skill:"مؤشر الحساب", r0:"رذاذ", r1:"زخّة", r2:"وابل", r3:"عاصفة", r4:"إعصار", r5:"مطر موسمي", newRecord:"رقم قياسي جديد!", toBeat:"ينقصك {n} نقطة لتحطيم رقمك القياسي", playAgain:"مباراة أخرى", rankUp:"رتبة جديدة: {r}!", record:"الرقم القياسي",
- challenge:"تحدي الأصدقاء", chIntro:"العب مباراة بعمليات ثابتة، ثم أرسل الرمز: سيحصل صديقك على نفس القطرات تمامًا.", create:"أنشئ تحديًا", gotCode:"هل وصلك رمز؟", accept:"اقبل التحدي", badCode:"هذا الرمز غير صالح. تحقق من الأحرف السبعة.", chReady:"التحدي جاهز!", chSend:"أرسل هذا الرمز إلى أصدقائك:", share:"مشاركة", copy:"نسخ", copied:"تم نسخ الرسالة", win:"لقد فزت!", lose:"خسرت بفارق {n} نقطة", tie:"تعادل!", versus:"أنت {a} · صديقك {b}", sendBack:"أعد التحدي", retry:"أعد هذا التحدي", toBeatFriend:"النتيجة المطلوبة: {n}", ahead:"أنت في المقدمة!", cheers:"أحسنت!|رائع!|ممتاز!|مذهل!|لا يُصدّق!|لا يُقهر!", nearRecord:"الرقم القياسي قريب!", goal:"هدف اليوم", goalDone:"حققت هدف اليوم!", day1:"يوم واحد متتالٍ", days:"{n} أيام متتالية", correctN:"إجابات صحيحة", bestStreak:"أفضل سلسلة", shareMsg:"حققت {s} نقطة في لعبة Averse de Calculs! اقبل تحديّ بالرمز {c}" },
+ challenge:"تحدي الأصدقاء", chIntro:"العب مباراة بعمليات ثابتة، ثم أرسل الرمز: سيحصل صديقك على نفس القطرات تمامًا.", create:"أنشئ تحديًا", gotCode:"هل وصلك رمز؟", accept:"اقبل التحدي", badCode:"هذا الرمز غير صالح. تحقق من الأحرف السبعة.", chReady:"التحدي جاهز!", chSend:"أرسل هذا الرمز إلى أصدقائك:", share:"مشاركة", copy:"نسخ", copied:"تم نسخ الرسالة", win:"لقد فزت!", lose:"خسرت بفارق {n} نقطة", tie:"تعادل!", versus:"أنت {a} · صديقك {b}", sendBack:"أعد التحدي", retry:"أعد هذا التحدي", toBeatFriend:"النتيجة المطلوبة: {n}", ahead:"أنت في المقدمة!", cheers:"أحسنت!|رائع!|ممتاز!|مذهل!|لا يُصدّق!|لا يُقهر!", nearRecord:"الرقم القياسي قريب!", goal:"هدف اليوم", goalDone:"حققت هدف اليوم!", day1:"يوم واحد متتالٍ", days:"{n} أيام متتالية", correctN:"إجابات صحيحة", bestStreak:"أفضل سلسلة", review:"للمراجعة", reviewHint:"ستعود هذه العمليات أكثر حتى تتقنها.", mastered:"أتقنت: {f}!", continueAt:"متابعة · المستوى {n}", shareMsg:"حققت {s} نقطة في لعبة Averse de Calculs! اقبل تحديّ بالرمز {c}" },
 es:{ title:"Lluvia de Cálculos", intro:"Resuelve cada gota antes de que toque el lago. La gota estalla en cuanto tu respuesta es correcta.",
  mode:"Modo", adventure:"Aventura", training:"Práctica", difficulty:"Dificultad", facile:"Fácil", normal:"Normal", expert:"Experto",
  play:"Jugar", soundOn:"Sonido activado", soundOff:"Sonido desactivado", stats:"Estadísticas", language:"Idioma",
@@ -241,7 +242,7 @@ es:{ title:"Lluvia de Cálculos", intro:"Resuelve cada gota antes de que toque e
  noData:"Aún no hay datos. ¡Juega una partida!", reset:"Restablecer", resetAsk:"¿Borrar todas las estadísticas?",
  resetYes:"Sí, borrar", cancel:"Cancelar", back:"Volver", sec:"{n} s", lives:"Vidas", progress:"Progreso del nivel", del:"Borrar",
  skill:"Índice de cálculo", r0:"Llovizna", r1:"Chubasco", r2:"Aguacero", r3:"Tormenta", r4:"Tempestad", r5:"Monzón", newRecord:"¡Nuevo récord!", toBeat:"Faltan {n} puntos para batir tu récord", playAgain:"Otra partida", rankUp:"¡Nuevo rango: {r}!", record:"Récord",
- challenge:"Reto entre amigos", chIntro:"Juega una partida con cálculos fijos y envía tu código: tu amigo recibirá exactamente las mismas gotas.", create:"Crear un reto", gotCode:"¿Recibiste un código?", accept:"Aceptar el reto", badCode:"Este código no es válido. Revisa los 7 caracteres.", chReady:"¡Reto listo!", chSend:"Envía este código a tus amigos:", share:"Compartir", copy:"Copiar", copied:"Mensaje copiado", win:"¡Ganaste!", lose:"Perdiste por {n} puntos", tie:"¡Empate!", versus:"Tú {a} · Tu amigo {b}", sendBack:"Devolver el reto", retry:"Repetir este reto", toBeatFriend:"Puntuación a batir: {n}", ahead:"¡Vas por delante!", cheers:"¡Bien hecho!|¡Genial!|¡Excelente!|¡Increíble!|¡Asombroso!|¡Imparable!", nearRecord:"¡Récord a la vista!", goal:"Objetivo del día", goalDone:"¡Objetivo del día cumplido!", day1:"1 día seguido", days:"{n} días seguidos", correctN:"Respuestas correctas", bestStreak:"Mejor racha", shareMsg:"¡Hice {s} puntos en Averse de Calculs! Acepta mi reto con el código {c}" },
+ challenge:"Reto entre amigos", chIntro:"Juega una partida con cálculos fijos y envía tu código: tu amigo recibirá exactamente las mismas gotas.", create:"Crear un reto", gotCode:"¿Recibiste un código?", accept:"Aceptar el reto", badCode:"Este código no es válido. Revisa los 7 caracteres.", chReady:"¡Reto listo!", chSend:"Envía este código a tus amigos:", share:"Compartir", copy:"Copiar", copied:"Mensaje copiado", win:"¡Ganaste!", lose:"Perdiste por {n} puntos", tie:"¡Empate!", versus:"Tú {a} · Tu amigo {b}", sendBack:"Devolver el reto", retry:"Repetir este reto", toBeatFriend:"Puntuación a batir: {n}", ahead:"¡Vas por delante!", cheers:"¡Bien hecho!|¡Genial!|¡Excelente!|¡Increíble!|¡Asombroso!|¡Imparable!", nearRecord:"¡Récord a la vista!", goal:"Objetivo del día", goalDone:"¡Objetivo del día cumplido!", day1:"1 día seguido", days:"{n} días seguidos", correctN:"Respuestas correctas", bestStreak:"Mejor racha", review:"Para repasar", reviewHint:"Volverán más a menudo hasta que los domines.", mastered:"¡Dominado: {f}!", continueAt:"Continuar · nivel {n}", shareMsg:"¡Hice {s} puntos en Averse de Calculs! Acepta mi reto con el código {c}" },
 };
 const LANG_NAMES = { fr:"Français", en:"English", ar:"العربية", es:"Español" };
 
@@ -258,6 +259,9 @@ if(getPref('averse-best',null)===null){
 // Skill index 0–100: drives speed, density and number ranges; carried between games
 const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
 let savedSkill = clamp(+getPref('averse-skill','0') || 0, 0, 100);
+let savedLevel = Math.max(1, +getPref('averse-level','1') || 1);   // adventure level is never lost
+const tlKey = () => 'averse-tl-' + trainOp + ((trainOp==='×'||trainOp==='÷') ? trainTable : 0);
+const savedTl = () => Math.max(0, +getPref(tlKey(),'0') || 0);
 const RANKS = [0,10,20,30,42,55];
 const rankName = s => t('r' + (RANKS.filter(r=>s>=r).length - 1));
 let mode = getPref('averse-mode','adventure'); if(mode!=='training') mode='adventure';
@@ -279,10 +283,10 @@ function applyLang(){
 }
 
 /* ---------- Statistics ---------- */
-const blankStats = () => ({ games:0, correct:0, wrong:0, missed:0, time:0, bestStage:0,
+const blankStats = () => ({ weak:{}, games:0, correct:0, wrong:0, missed:0, time:0, bestStage:0,
   ops:{ '+':{c:0,m:0}, '-':{c:0,m:0}, '×':{c:0,m:0}, '÷':{c:0,m:0} }, facts:{} });
 function loadStats(){
-  try{ const s = JSON.parse(getPref('averse-stats','null')); if(s && s.ops) return s; }catch(e){}
+  try{ const s = JSON.parse(getPref('averse-stats','null')); if(s && s.ops){ s.weak = s.weak || {}; return s; } }catch(e){}
   return blankStats();
 }
 let stats = loadStats();
@@ -395,7 +399,49 @@ function makeProblem(cfg){
   } else {
     b = cfg.table || rnd(2,cfg.tableMax); r = rnd(1, cfg.table ? 10 : cfg.tableMax); a=b*r;
   }
-  return { op, text:`${a} ${SYM[op]} ${b}`, result:r };
+  return { op, a, b, text:`${a} ${SYM[op]} ${b}`, result:r };
+}
+
+// Missed or slow calculations are kept with a weight and come back about one drop in
+// three while they still fit the current difficulty. Each success lowers the weight.
+function weakFits(f, cfg){
+  if(state.mode==='training'){
+    if(f.op!==trainOp) return false;
+    if(!cfg.table) return true;
+    return f.op==='×' ? (f.a===cfg.table || f.b===cfg.table) : f.b===cfg.table;
+  }
+  if(!cfg.weights || !cfg.weights[OPS.indexOf(f.op)]) return false;
+  if(f.op==='+'||f.op==='-') return f.a <= cfg.max+6 && f.b <= cfg.max+6;
+  if(f.op==='×') return f.a <= cfg.tableMax+2 && f.b <= cfg.tableMax+2;
+  return f.b <= cfg.tableMax+2 && f.a/f.b <= cfg.tableMax+2;
+}
+function pickWeak(cfg){
+  if(state.ch || Math.random() > 0.33) return null;
+  const onScreen = new Set(state.drops.map(d=>d.text));
+  const c = Object.entries(stats.weak).filter(([k,f])=>!onScreen.has(k) && weakFits(f,cfg));
+  if(!c.length) return null;
+  let x = Math.random() * c.reduce((n,[,f])=>n+f.w, 0);
+  for(const [k,f] of c){ x -= f.w; if(x<=0){
+    const r = f.op==='+' ? f.a+f.b : f.op==='-' ? f.a-f.b : f.op==='×' ? f.a*f.b : f.a/f.b;
+    return { op:f.op, a:f.a, b:f.b, text:k, result:r };
+  } }
+  return null;
+}
+function weakAdd(d, n){
+  const f = stats.weak[d.text] || { w:0, op:d.op, a:d.a, b:d.b };
+  f.w = Math.min(6, f.w + n); stats.weak[d.text] = f;
+  const keys = Object.keys(stats.weak);
+  if(keys.length > 40) keys.sort((a,b)=>stats.weak[a].w-stats.weak[b].w).slice(0, keys.length-40).forEach(k=>delete stats.weak[k]);
+}
+function weakSolved(d, fast){
+  const f = stats.weak[d.text]; if(!f) return;
+  f.w -= fast ? 2 : 1;
+  if(f.w <= 0){ delete stats.weak[d.text]; setTimeout(()=>toast(t('mastered',{f:d.text})), 600); }
+}
+function reviewBlock(){
+  const w = Object.entries(stats.weak).sort((a,b)=>b[1].w-a[1].w).slice(0,5);
+  if(!w.length) return '';
+  return `<h3>${t('review')}</h3><div class="chips">${w.map(([k])=>`<span class="chip">${k}</span>`).join('')}</div><p class="hint">${t('reviewHint')}</p>`;
 }
 
 /* ---------- Game flow ---------- */
@@ -404,17 +450,18 @@ function start(ch){
   cancelAnimationFrame(raf);
   field.querySelectorAll('.drop').forEach(d=>d.remove());
   const gmode = ch ? 'challenge' : mode;
-  const s0 = ch ? ch.bucket*4 : Math.round(savedSkill*WARM);   // warm-up: start well below last time
-  state = { mode:gmode, ch: ch || null, aheadShown:false, spawnK:0, stage:1, score:0, lives:MAX_LIVES, solved:0, drops:[], timer:0.8, combo:0, running:true,
-            time:0, slowUntil:0, graceUntil:0, s0, skill:s0, peak:s0, bestCombo:0, nearShown:false, tl:0, best:bestScore(), recordShown:false,
-            goal: gmode==='training' ? Infinity : levelGoal(1),
+  const s0 = ch ? ch.bucket*4 : Math.max(0, savedSkill - 6);   // short warm-up just below the saved level
+  const stage0 = gmode==='adventure' ? savedLevel : 1;
+  state = { mode:gmode, ch: ch || null, aheadShown:false, spawnK:0, stage:stage0, score:0, lives:MAX_LIVES, solved:0, drops:[], timer:0.8, combo:0, running:true,
+            time:0, slowUntil:0, graceUntil:0, s0, skill:s0, peak:s0, bestCombo:0, nearShown:false, tl: gmode==='training' ? Math.max(0, savedTl()-3) : 0, best:bestScore(), recordShown:false,
+            goal: gmode==='training' ? Infinity : levelGoal(stage0),
             lvl:{c:0,w:0,m:0,frac:0}, sess:{c:0,w:0,m:0,time:0} };
   stats.games++; saveStats();
   state.cfg = cfgNow();
   overlay.hidden = true; $('pauseBtn').hidden = false; $('app').classList.remove('menu');
   typed=''; renderAnswer(); renderHud();
   toast(state.mode==='training' ? t('training')
-      : (ch && ch.score) ? t('toBeatFriend',{n:ch.score}) : t('toastLevel',{n:1}));
+      : (ch && ch.score) ? t('toBeatFriend',{n:ch.score}) : t('toastLevel',{n:stage0}));
   run();
 }
 function run(){ state.running = true; last = performance.now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); }
@@ -426,7 +473,8 @@ function spawn(){
   state.spawnK++;
   // two answers like 2 and 21 on screen together would make 2 pop while typing 21
   const clash = r => state.drops.some(d=>{ const a=String(d.result), b=String(r); return a.startsWith(b) || b.startsWith(a); });
-  let p = makeProblem(state.cfg), tries = 0;
+  let p = pickWeak(state.cfg), tries = 0;
+  if(!p || clash(p.result)) p = makeProblem(state.cfg);
   while(!state.ch && tries++ < 15 && clash(p.result)) p = makeProblem(state.cfg);
   const el = document.createElement('div');
   let kind = '';
@@ -488,6 +536,8 @@ function miss(d){
   if(state.mode==='adventure') state.skill = clamp(state.skill - 6, 0, 100);   // ease off after a miss
   state.graceUntil = state.time + 3;
   state.tl = Math.max(0, state.tl - 4);
+  weakAdd(d, 2); saveStats();
+  if(state.mode==='training') setPref(tlKey(), state.tl);
   // whatever was being typed for that drop no longer leads anywhere
   if(typed && !state.drops.some(x=>String(x.result).startsWith(typed))){ typed=''; clearTimeout(pendT); renderAnswer(); }
   renderHud();
@@ -532,6 +582,10 @@ function hit(d){
   }
   state.peak = Math.max(state.peak, state.skill);
   state.tl++;
+  if(state.mode==='training') setPref(tlKey(), state.tl);
+  const fr = took / d.fall;
+  if(fr > 0.7) weakAdd(d, 1); else weakSolved(d, fr < 0.45);
+  saveStats();
   state.bestCombo = Math.max(state.bestCombo, state.combo);
   dailyHit();
   const pts = 10 + Math.floor(state.skill/5) + Math.min(state.combo-1,5)*5;
@@ -570,6 +624,7 @@ function levelUp(){
   state.score += 20*state.stage;
   state.stage++; state.solved = 0; state.spawnK = 0; state.goal = levelGoal(state.stage);
   state.lvl = {c:0,w:0,m:0,frac:0};
+  if(state.mode==='adventure') checkpoint();
   clearSnd();
   const after = rankName(state.skill);
   toast(state.mode==='adventure' && after!==before ? t('rankUp',{r:after}) : t('toastLevel',{n:state.stage}));
@@ -583,14 +638,21 @@ function stopGame(){
 function clearDrops(){ state.drops.forEach(d=>d.el.remove()); state.drops=[]; }
 function bestScore(){ return +getPref('averse-best', 0) || 0 }
 
+// Progress is saved at every level so closing the app never loses it
+const nextSkill = () => clamp(Math.max(savedSkill - 3, Math.round((savedSkill + state.peak)/2)), 0, 100);
+function checkpoint(){
+  savedLevel = Math.max(savedLevel, state.stage); setPref('averse-level', savedLevel);
+  setPref('averse-skill', Math.max(savedSkill, nextSkill()));
+}
 // Saves best score, best level and the skill index; returns what changed
 function finishAdventure(){
   const prevBest = bestScore(), isRecord = state.score > prevBest && state.score > 0;
   if(isRecord) setPref('averse-best', state.score);
   stats.bestStage = Math.max(stats.bestStage, state.stage); saveStats();
   const prevSkill = savedSkill;
-  savedSkill = clamp(Math.max(prevSkill - 5, Math.round((prevSkill + state.peak)/2)), 0, 100);
+  savedSkill = nextSkill();
   setPref('averse-skill', savedSkill);
+  savedLevel = Math.max(savedLevel, state.stage); setPref('averse-level', savedLevel);
   return { isRecord, best: Math.max(prevBest, state.score), skillDelta: savedSkill - prevSkill };
 }
 
@@ -618,6 +680,7 @@ function gameOver(){
       </div>
       ${goalBlock()}
       ${skillBlock(res.skillDelta)}
+      ${reviewBlock()}
       <p>${t('overInfo',{s:state.stage,b:res.best})}</p>
       <button class="btn" id="again">${t('playAgain')}</button>
       <button class="link" id="menu">${t('menu')}</button>`, '#again');
@@ -636,6 +699,7 @@ function trainSummary(){
       <div class="tile"><b>${s.c ? t('sec',{n:(s.time/s.c).toFixed(1)}) : '–'}</b><span>${t('avgTime')}</span></div>
       <div class="tile"><b>${s.m}</b><span>${t('missed')}</span></div>
     </div>
+    ${reviewBlock()}
     <button class="btn" id="again">${t('playAgain')}</button>
     <button class="link" id="menu">${t('menu')}</button>`, '#again');
   $('again').onclick = ()=>start(); $('menu').onclick = ()=>{ state=null; renderMenu(); };
@@ -794,7 +858,7 @@ function renderMenu(focusSel){
     </div>
     ${modeBlock}
     ${goalBlock()}
-    <button class="btn" id="start">${t('play')}</button>
+    <button class="btn" id="start">${mode==='adventure' && savedLevel>1 ? t('continueAt',{n:savedLevel}) : t('play')}</button>
     <button class="btn ghost" id="chBtn">${t('challenge')}</button>
     <div class="row">
       <button class="link" id="statsBtn">${t('stats')}</button>
@@ -831,6 +895,7 @@ function renderStats(confirming){
       ${OPS.map(o=>{ const s=stats.ops[o], n=s.c+s.m, p=pct(s.c,n);
         return `<div class="oprow"><span class="sym">${SYM[o]}</span><div class="bar"><i style="width:${n?p:0}%"></i></div><span class="pct">${n?p+'%':'–'}</span></div>`; }).join('')}
     </div>
+    ${reviewBlock()}
     ${hard.length ? `<h3>${t('hardest')}</h3><div class="chips">${hard.map(([k,v])=>`<span class="chip">${k}<small>×${v}</small></span>`).join('')}</div>` : ''}`;
   const foot = confirming ? `
     <p>${t('resetAsk')}</p>
@@ -842,6 +907,8 @@ function renderStats(confirming){
     $('yes').onclick = ()=>{
       stats = blankStats(); saveStats();
       savedSkill = 0; setPref('averse-skill',0); setPref('averse-best',0);
+      savedLevel = 1; setPref('averse-level',1);
+      OPS.forEach(o=>[0,2,3,4,5,6,7,8,9,10,11,12].forEach(n=>setPref('averse-tl-'+o+n,0)));
       renderStats();
     };
     $('no').onclick = ()=>renderStats();
